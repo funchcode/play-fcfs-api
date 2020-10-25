@@ -1,15 +1,13 @@
 package practice.datastructure;
 
-import java.util.LinkedList;
-
-public class LinkedListStructureTest {
+public class LinkedListTest {
 
     public static void main(String[] args) {
         addTest();
     }
 
     public static void addTest() {
-        LinkedListStructure listStructure = new LinkedListStructure();
+        LinkedList listStructure = new LinkedList();
         listStructure.add("1");
         listStructure.add("2");
         listStructure.add("3");

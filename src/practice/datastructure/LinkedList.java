@@ -7,7 +7,7 @@ package practice.datastructure;
  * Search − Searches an element using the given key.
  * Delete − Deletes an element using the given key.
  */
-public class LinkedListStructure {
+public class LinkedList {
     private int size = 0;
     private Node head;
 
