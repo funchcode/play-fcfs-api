@@ -38,6 +38,10 @@ public class Q81 {
                     firstIdx = i;
                 }
                 lastIdx = i;
+            } else {
+                if (lastIdx != -1) {
+                    break;
+                }
             }
         }
         if (firstIdx == -1 && lastIdx == -1) {
