@@ -1,2 +1,10 @@
 .idea
 .idea/
+
+.gradle
+.gradle/
+
+build
+build/
+
+src/main/resources/application-private.yml
