@@ -1,10 +1,8 @@
-package io.github.fuchcode.core.common;
+package io.github.funchcode.core.common;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.ConstructorBinding;
-import org.springframework.stereotype.Component;
 
 @Getter
 @RequiredArgsConstructor

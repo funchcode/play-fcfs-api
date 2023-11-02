@@ -1,6 +1,6 @@
-package io.github.fuchcode.web.ticket;
+package io.github.funchcode.web.ticket;
 
-import io.github.fuchcode.core.ticket.TicketService;
+import io.github.funchcode.core.fcfs.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;

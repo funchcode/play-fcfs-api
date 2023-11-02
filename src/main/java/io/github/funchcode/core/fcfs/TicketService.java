@@ -1,4 +1,4 @@
-package io.github.fuchcode.core.ticket;
+package io.github.funchcode.core.fcfs;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.SetOperations;

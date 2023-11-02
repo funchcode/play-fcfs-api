@@ -1,4 +1,4 @@
-package io.github.fuchcode.web;
+package io.github.funchcode.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
