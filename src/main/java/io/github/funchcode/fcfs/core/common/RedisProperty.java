@@ -1,4 +1,4 @@
-package io.github.funchcode.core.common;
+package io.github.funchcode.fcfs.core.common;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

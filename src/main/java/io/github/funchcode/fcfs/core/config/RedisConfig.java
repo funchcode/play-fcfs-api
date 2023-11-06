@@ -1,6 +1,6 @@
-package io.github.funchcode.core.config;
+package io.github.funchcode.fcfs.core.config;
 
-import io.github.funchcode.core.common.RedisProperty;
+import io.github.funchcode.fcfs.core.common.RedisProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
