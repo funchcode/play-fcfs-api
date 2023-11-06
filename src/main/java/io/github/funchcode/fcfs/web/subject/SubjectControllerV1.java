@@ -12,7 +12,7 @@ public final class SubjectControllerV1 {
 
     private final SubjectService subjectService;
 
-    @PostMapping(path = "/{subjectId}/acquire")
+    @PostMapping(path = "/{subjectId}/tickets/acquire")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean acquire(
             @PathVariable("subjectId") String subjectId
