@@ -1,14 +1,19 @@
 package io.github.funchcode.fcfs.core.ticket;
 
-public class Ticket {
+import io.github.funchcode.fcfs.core.subject.Subject;
 
-    // final로 변경 필요
-    private String subjectId;
-    // final로 변경 필요
-    private String clientId;
+public final class Ticket {
 
-    public String getSubjectId() {
-        return subjectId;
+    private final Subject subject;
+    private final String clientId;
+
+    public Ticket(Subject subject, String clientId) {
+        this.subject = subject;
+        this.clientId = clientId;
+    }
+
+    public Subject getSubject() {
+        return subject;
     }
 
     public String getClientId() {

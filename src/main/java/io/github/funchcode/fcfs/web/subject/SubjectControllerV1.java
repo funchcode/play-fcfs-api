@@ -1,6 +1,7 @@
 package io.github.funchcode.fcfs.web.subject;
 
 import io.github.funchcode.fcfs.core.subject.SubjectService;
+import io.github.funchcode.fcfs.web.subject.dto.SubjectTicketRequireRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +16,10 @@ public final class SubjectControllerV1 {
     @PostMapping(path = "/{subjectId}/tickets/acquire")
     @ResponseStatus(HttpStatus.CREATED)
     public boolean acquire(
-            @PathVariable("subjectId") String subjectId
+            @PathVariable("subjectId") String subjectId,
+            @RequestBody SubjectTicketRequireRequest request
     ) {
-        return subjectService.acquireTicket(subjectId);
+        return subjectService.acquireTicket(subjectId, request.clientId());
     }
 
 }
