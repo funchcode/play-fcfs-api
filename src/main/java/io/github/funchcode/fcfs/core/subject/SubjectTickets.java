@@ -17,7 +17,6 @@ public final class SubjectTickets {
 
     // SUBJECT 발급 가능 상태 확인
     private void checkIssueable() {
-        // 취득할 수 있는 기간인지 확인 23.11.10 13:30:00 ~ 23.11.20 13:35:00
         subject.checkIssueable();
         // 대상 여분 있는지 체크
         if (quantityLeft() <= 0) {

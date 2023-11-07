@@ -2,16 +2,22 @@ package io.github.funchcode.fcfs.core.subject;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 public final class Subject {
 
     private final String id;
     private final int limitedQuantityOf;
+    private final LocalDateTime openDate;
+    private final LocalDateTime deadlineDate;
     private final Status status;
 
-    public Subject(String id, int limitedQuantityOf, Status status) {
+    public Subject(String id, int limitedQuantityOf, LocalDateTime openDate, LocalDateTime deadlineDate, Status status) {
         this.id = id;
         this.limitedQuantityOf = limitedQuantityOf;
+        this.openDate = openDate;
+        this.deadlineDate = deadlineDate;
         this.status = status;
     }
 
@@ -25,11 +31,12 @@ public final class Subject {
 
     // 발급 가능한 기간인지 확인
     private boolean issueablePeriod() {
-        return false;
+        LocalDateTime today = LocalDateTime.now();
+        return openDate.isBefore(today) && deadlineDate.isAfter(today);
     }
 
     private boolean issueableStatus() {
-        return false;
+        return Status.ONGOING.equals(status);
     }
 
     // SUBJECT 상태
