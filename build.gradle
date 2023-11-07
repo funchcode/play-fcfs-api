@@ -31,6 +31,8 @@ dependencies {
     implementation 'software.amazon.awssdk:dynamodb:2.21.10'
     // https://mvnrepository.com/artifact/software.amazon.awssdk/elasticache
     implementation 'software.amazon.awssdk:elasticache:2.21.10'
+    // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
+    testImplementation 'org.testcontainers:junit-jupiter:1.19.1'
 
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'

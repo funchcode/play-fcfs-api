@@ -21,14 +21,6 @@ public class RedisConfig {
     private final RedisProperty redisProperty;
 
     @Bean
-    public RedisTemplate<byte[], byte[]> redisTemplate() {
-        RedisTemplate<byte[], byte[]> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(new LettuceConnectionFactory(redisProperty.getHost(), redisProperty.getPort()));
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        return redisTemplate;
-    }
-
-    @Bean
     public RedissonClient redissonClient() {
         Config config = new Config();
         config.useSingleServer().setAddress(String.format("%s%s:%s", REDISSON_HOST_PREFIX, redisProperty.getHost(), redisProperty.getPort()));
