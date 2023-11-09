@@ -12,9 +12,13 @@ public final class TicketService {
 
     public boolean register(Ticket ticket) {
         redisService.cachingTicket(ticket);
-        messageService.sendTicketMessage(ticket);
-        // caching에는 성공했지만 reducer에서 실패한 경우 데이터 동기화(NoSQL <> REDIS) 필요
-        return true;
+        try {
+            messageService.sendTicketMessage(ticket);
+            return true;
+        } catch (Exception e) {
+            redisService.removeCache(ticket);
+            throw e;
+        }
     }
 
 }
