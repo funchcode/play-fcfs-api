@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 
-@ActiveProfiles("test")
+@ActiveProfiles("mytest")
 @SpringBootTest
 public class TicketRedisServiceTest extends AbstractContainerBaseTest {
 

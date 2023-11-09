@@ -9,12 +9,7 @@ cloud:
     credentials:
       access-key: ${AWS_ACCESSKEY}
       secret-key: ${AWS_SECRETKEY}
-    region:
-      static: ${AWS_REGION}
-      auto: false
-    stack:
-      auto: false
+    region: ${AWS_REGION}
     sqs:
-      queue:
-        name: ${AWS_SQS_NAME}
-        url: ${AWS_SQS_URL}
+      name: ${AWS_SQS_NAME}
+      url: ${AWS_SQS_URL}

@@ -3,3 +3,13 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESSKEY}
+      secret-key: ${AWS_SECRETKEY}
+    region: ap-northeast-2
+    sqs:
+      name: ${AWS_SQS_NAME}
+      url: ${AWS_SQS_URL}

@@ -8,3 +8,4 @@ build
 build/
 
 src/main/resources/application-private.yml
+src/test/resources/application-mytest.yml

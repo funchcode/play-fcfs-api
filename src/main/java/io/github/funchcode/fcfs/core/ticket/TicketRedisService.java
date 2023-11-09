@@ -10,7 +10,6 @@ import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisException;
 import org.springframework.stereotype.Service;
 
-import javax.cache.CacheException;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
