@@ -1,10 +1,12 @@
 package io.github.funchcode.fcfs.core.subject;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
 @Slf4j
+@Getter
 public final class Subject {
 
     private final String id;
@@ -19,14 +21,6 @@ public final class Subject {
         this.openDate = openDate;
         this.deadlineDate = deadlineDate;
         this.status = status;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public int getLimitedQuantityOf() {
-        return limitedQuantityOf;
     }
 
     // 발급 가능한 기간인지 확인

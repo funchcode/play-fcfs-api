@@ -27,14 +27,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     // https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter
     implementation 'org.redisson:redisson-spring-boot-starter:3.24.3'
-    // https://mvnrepository.com/artifact/software.amazon.awssdk/dynamodb
-    implementation 'software.amazon.awssdk:dynamodb:2.21.10'
     // https://mvnrepository.com/artifact/software.amazon.awssdk/elasticache
     implementation 'software.amazon.awssdk:elasticache:2.21.10'
     // https://mvnrepository.com/artifact/io.awspring.cloud/spring-cloud-aws-sqs
     implementation 'io.awspring.cloud:spring-cloud-aws-sqs:3.0.3'
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-aws-messaging
     implementation 'org.springframework.cloud:spring-cloud-aws-messaging:2.2.6.RELEASE'
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-dynamodb
+    implementation 'com.amazonaws:aws-java-sdk-dynamodb:1.12.583'
 
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
     testImplementation 'org.testcontainers:junit-jupiter:1.19.1'

@@ -12,6 +12,7 @@ public final class AwsProperty {
     private final Credentials credentials;
     private final String region;
     private final Sqs sqs;
+    private final Dynamodb dynamodb;
 
     @Getter
     @RequiredArgsConstructor
@@ -28,6 +29,14 @@ public final class AwsProperty {
 
         private final String name;
         private final String url;
+
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public static final class Dynamodb {
+
+        private final String endpoint;
 
     }
 
