@@ -19,10 +19,9 @@ public class SubjectService {
 
     public boolean acquireTicket(String subjectId, String clientId) {
         SubjectTickets subjectTickets = new SubjectTickets(
-                subjectRepository.findById(subjectId),
+                subjectRepository.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("등록된 SUBJECT가 없음.")),
                 new HashSet<>(ticketRepository.findAllBySubject_Id(subjectId))
         );
-        // 취득
         return ticketService.register(subjectTickets.issueTicket(clientId));
     }
 

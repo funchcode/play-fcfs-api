@@ -6,6 +6,8 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
 import io.github.funchcode.fcfs.core.common.AwsProperty;
@@ -21,6 +23,15 @@ public class AwsConfig {
     public AwsConfig(AwsProperty awsProperty) {
         this.awsProperty = awsProperty;
         this.awsCredentialsProvider = new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsProperty.getCredentials().getAccessKey(), awsProperty.getCredentials().getSecretKey()));
+    }
+
+    @Bean
+    public DynamoDBMapper dynamoDBMapper() {
+        DynamoDBMapperConfig mapperConfig = DynamoDBMapperConfig.builder()
+                .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
+                .withConsistentReads(DynamoDBMapperConfig.ConsistentReads.CONSISTENT)
+                .build();
+        return new DynamoDBMapper(amazonDynamoDB(), mapperConfig);
     }
 
     @Bean(destroyMethod = "shutdown")
