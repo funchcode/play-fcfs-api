@@ -45,10 +45,8 @@ public class AwsConfig {
     @Bean(destroyMethod = "shutdown")
     public AmazonDynamoDB amazonDynamoDB() {
         return AmazonDynamoDBClientBuilder.standard()
-                .withEndpointConfiguration(
-                        new AwsClientBuilder.EndpointConfiguration(awsProperty.getDynamodb().getEndpoint(), awsProperty.getRegion())
-                )
                 .withCredentials(awsCredentialsProvider)
+                .withRegion(awsProperty.getRegion())
                 .build();
     }
 

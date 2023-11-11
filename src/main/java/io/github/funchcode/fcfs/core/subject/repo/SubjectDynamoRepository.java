@@ -23,7 +23,7 @@ public class SubjectDynamoRepository implements SubjectRepository {
         } else {
             dao.setCreatedAt(LocalDateTime.now());
         }
-        dynamoDBMapper.save(new SubjectDao(subject));
+        dynamoDBMapper.save(dao);
         return subject;
     }
 
