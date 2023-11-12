@@ -1,7 +1,28 @@
+### 발급
 POST http://localhost:8080/v1/subjects/test-subject-001/tickets/acquire
 Content-Type: application/json
 
 {
   "clientId" : "test-client-aaa"
 }
-###
+### 등록
+POST http://localhost:8080/v1/subjects
+Content-Type: application/json
+
+{
+  "limitedQuantityOf": 1,
+  "openDateTime": {
+    "year": 2023,
+    "month": 11,
+    "day": 12,
+    "hour": 12,
+    "minute": 24
+  },
+  "deadlineDateTime": {
+    "year": 2023,
+    "month": 12,
+    "day": 31,
+    "hour": 12,
+    "minute": 24
+  }
+}

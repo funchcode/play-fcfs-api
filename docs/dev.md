@@ -18,3 +18,11 @@ AWS DynamoDB 서비스에 붙여서 사용하기 위해서는 다음 두 가지�
 
 2) Credential IAM 접근 권한 설정  
    IAM `AmazonDynamoDBFullAccess` 정책을 설정한다.
+
+## JAVA
+
+1) **`record` 키워드**  
+   record 키워드를 사용한 객체를 생성할 때 객체는 상속을 할 수 없는 `final class`로 만들어진다.  
+   모든 필드는 `private final` 필드로 정의된다.  
+   모든 필드를 초기화하는 `RequiredArgsConstructor` 생성자가 생성된다.  
+   각 필드에 해당하는 `getter` 메서드가 생성되는데 필드명으로 접근할 수 있다.

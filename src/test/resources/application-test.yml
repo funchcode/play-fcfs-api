@@ -13,5 +13,3 @@ cloud:
     sqs:
       name: ${AWS_SQS_NAME}
       url: ${AWS_SQS_URL}
-    dynamodb:
-      endpoint: http://localhost:8000

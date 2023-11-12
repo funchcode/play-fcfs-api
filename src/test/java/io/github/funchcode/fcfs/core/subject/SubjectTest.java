@@ -19,7 +19,6 @@ public class SubjectTest {
         LocalDateTime ongoingOpenDate = today.minusDays(1L);
         LocalDateTime ongoingDeadlineDate = today.plusDays(2L);
 
-        Assertions.assertThrows(TicketIssueException.class, () -> new Subject("test-id", 10, pastOpenDate, pastDeadlineDate, Status.ONGOING).checkIssueable());
         Assertions.assertThrows(TicketIssueException.class, () -> new Subject("test-id", 10, willOpenDate, willDeadlineDate, Status.ONGOING).checkIssueable());
         Assertions.assertDoesNotThrow(() -> new Subject("test-id", 10, ongoingOpenDate, ongoingDeadlineDate, Status.ONGOING).checkIssueable());
     }
@@ -34,6 +33,42 @@ public class SubjectTest {
         Assertions.assertThrows(TicketIssueException.class, () -> new Subject("test-id", 10, ongoingOpenDate, ongoingDeadlineDate, Status.END).checkIssueable());
         Assertions.assertThrows(TicketIssueException.class, () -> new Subject("test-id", 10, ongoingOpenDate, ongoingDeadlineDate, Status.CANCEL).checkIssueable());
         Assertions.assertDoesNotThrow(() -> new Subject("test-id", 10, ongoingOpenDate, ongoingDeadlineDate, Status.ONGOING).checkIssueable());
+    }
+
+    @Test
+    @DisplayName("수량을 0이하로 초기화할 수 없음")
+    void newInstance_InvalidLimitedQuantity() {
+        int zeroLimitedQuantity = 0;
+        int minusLimitedQuantity = -1;
+        int validLimitedQuantity = 1;
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime ongoingOpenDate = today.minusDays(1L);
+        LocalDateTime ongoingDeadlineDate = today.plusDays(2L);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Subject.newInstance(zeroLimitedQuantity, ongoingOpenDate, ongoingDeadlineDate));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Subject.newInstance(minusLimitedQuantity, ongoingOpenDate, ongoingDeadlineDate));
+        Assertions.assertDoesNotThrow(() -> Subject.newInstance(validLimitedQuantity, ongoingOpenDate, ongoingDeadlineDate));
+    }
+
+    @Test
+    @DisplayName("오픈 날짜는 마감 날짜 이후로 초기화할 수 없음")
+    void newInstance_InvalidOpenDeadlineDateSet() {
+        int validLimitedQuantity = 1;
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime afterFiveDays = today.plusDays(5L);
+        LocalDateTime afterFourDays = today.plusDays(4L);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Subject.newInstance(validLimitedQuantity, afterFiveDays, afterFourDays));
+        Assertions.assertDoesNotThrow(() -> Subject.newInstance(validLimitedQuantity, afterFourDays, afterFiveDays));
+    }
+
+    @Test
+    @DisplayName("마감 날짜는 과거로 초기화할 수 없음")
+    void newInstance_InvalidPastDeadlineSet() {
+        int validLimitedQuantity = 1;
+        LocalDateTime today = LocalDateTime.now();
+        LocalDateTime beforeFiveDays = today.minusDays(5L);
+        LocalDateTime beforeFourDays = today.minusDays(4L);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Subject.newInstance(validLimitedQuantity, beforeFourDays, beforeFiveDays));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> Subject.newInstance(validLimitedQuantity, beforeFiveDays, beforeFourDays));
     }
 
 }

@@ -14,30 +14,15 @@ public final class AwsProperty {
     private final Sqs sqs;
     private final Dynamodb dynamodb;
 
-    @Getter
-    @RequiredArgsConstructor
-    public static final class Credentials {
-
-        private final String accessKey;
-        private final String secretKey;
+    public record Credentials(String accessKey, String secretKey) {
 
     }
 
-    @Getter
-    @RequiredArgsConstructor
-    public static final class Sqs {
-
-        private final String name;
-        private final String url;
+    public record Sqs(String name, String url) {
 
     }
 
-    @Getter
-    @RequiredArgsConstructor
-    public static final class Dynamodb {
-
-        private final String endpoint;
-
+    public record Dynamodb(String endpoint) {
     }
 
 }

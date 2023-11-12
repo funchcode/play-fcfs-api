@@ -1,7 +1,6 @@
 package io.github.funchcode.fcfs.core.mq;
 
 import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,7 +23,7 @@ public class AmazonSqsMessageProducer implements MessageProducer {
     public <T> SendMessageResult produce(Message<T> message) throws JsonProcessingException {
         return amazonSQS.sendMessage(
                 new SendMessageRequest(
-                        awsProperty.getSqs().getUrl(),
+                        awsProperty.getSqs().url(),
                         objectMapper.writeValueAsString(message.body())
                 ).withMessageGroupId(message.groupId()).withMessageDeduplicationId(message.deduplicationId())
         );

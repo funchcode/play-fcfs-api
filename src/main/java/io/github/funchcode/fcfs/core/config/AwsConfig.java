@@ -3,7 +3,6 @@ package io.github.funchcode.fcfs.core.config;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -22,7 +21,7 @@ public class AwsConfig {
 
     public AwsConfig(AwsProperty awsProperty) {
         this.awsProperty = awsProperty;
-        this.awsCredentialsProvider = new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsProperty.getCredentials().getAccessKey(), awsProperty.getCredentials().getSecretKey()));
+        this.awsCredentialsProvider = new AWSStaticCredentialsProvider(new BasicAWSCredentials(awsProperty.getCredentials().accessKey(), awsProperty.getCredentials().secretKey()));
     }
 
     @Bean

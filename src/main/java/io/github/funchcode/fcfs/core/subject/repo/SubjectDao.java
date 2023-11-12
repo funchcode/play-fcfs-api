@@ -21,12 +21,10 @@ public class SubjectDao {
     private String id;
 
     @DynamoDBAttribute
-//    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S)
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime openDate;
 
     @DynamoDBAttribute
-//    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S)
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime deadlineDate;
 
@@ -34,20 +32,15 @@ public class SubjectDao {
     private int limitedQuantityOf;
 
     @DynamoDBAttribute
-//    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S)
     @DynamoDBTypeConverted(converter = DynamoDBStatusConverter.class)
     private Status status;
 
-    // ID 기준 새로운 데이터이면 자동으로 NEW localdatetime
     @DynamoDBAttribute
-//    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S)
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime createdAt;
 
-    // ID 기준 기존 데이터가 존재하면 자동으로 UPDATE
     @DynamoDBAttribute
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
-//    @DynamoDBTyped(DynamoDBMapperFieldModel.DynamoDBAttributeType.S)
     private LocalDateTime updatedAt;
 
     public SubjectDao(Subject subject) {

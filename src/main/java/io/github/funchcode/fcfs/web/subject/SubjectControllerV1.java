@@ -1,6 +1,7 @@
 package io.github.funchcode.fcfs.web.subject;
 
 import io.github.funchcode.fcfs.core.subject.SubjectService;
+import io.github.funchcode.fcfs.web.subject.dto.SubjectRegisterRequest;
 import io.github.funchcode.fcfs.web.subject.dto.SubjectTicketRequireRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,12 @@ public final class SubjectControllerV1 {
     ) {
         // throws 별로 response 처리
         return subjectService.acquireTicket(subjectId, request.clientId());
+    }
+
+    @PostMapping(path = "")
+    @ResponseStatus(HttpStatus.CREATED)
+    public String register(@RequestBody SubjectRegisterRequest request) {
+        return subjectService.register(request.limitedQuantityOf(), request.openDateTime().toLocalDateTime(), request.deadlineDateTime().toLocalDateTime()).getId();
     }
 
 }
