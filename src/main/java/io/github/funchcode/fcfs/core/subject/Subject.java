@@ -1,5 +1,8 @@
 package io.github.funchcode.fcfs.core.subject;
 
+import io.github.funchcode.fcfs.core.common.ErrorCode;
+import io.github.funchcode.fcfs.core.common.FcfsIllegalArgumentException;
+import io.github.funchcode.fcfs.core.common.FcfsRuntimeException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,13 +21,13 @@ public final class Subject {
 
     public Subject(String id, int limitedQuantityOf, LocalDateTime openDate, LocalDateTime deadlineDate, Status status) {
         if (limitedQuantityOf <= 0) {
-            throw new IllegalArgumentException("수량은 0이하의 수를 입력할 수 없음");
+            throw new FcfsIllegalArgumentException(ErrorCode.SUBJECT_POLICY).setExternalMessage("0이하의 수량을 설정할 수 없습니다.");
         }
         if (openDate.isAfter(deadlineDate)) {
-            throw new IllegalArgumentException("오픈 날짜는 마감 날짜 이후일 수 없음");
+            throw new FcfsIllegalArgumentException(ErrorCode.SUBJECT_POLICY).setExternalMessage("오픈 날짜는 마감 날짜 이후로 설정할 수 없습니다.");
         }
         if (deadlineDate.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("마감 날짜는 과거일 수 없음");
+            throw new FcfsIllegalArgumentException(ErrorCode.SUBJECT_POLICY).setExternalMessage("마감 날짜는 과거로 설정할 수 없습니다.");
         }
         this.id = id;
         this.limitedQuantityOf = limitedQuantityOf;
@@ -54,10 +57,10 @@ public final class Subject {
 
     void checkIssueable() {
         if (!issueableStatus()) {
-            throw new TicketIssueException("상태 에러");
+            throw new TicketIssueException(ErrorCode.TICKET_POLICY).setExternalMessage("발급할 수 없는 상태입니다.");
         }
         if (!issueablePeriod()) {
-            throw new TicketIssueException("기간 에러");
+            throw new TicketIssueException(ErrorCode.TICKET_POLICY).setExternalMessage("발급할 수 없는 기간입니다.");
         }
     }
 

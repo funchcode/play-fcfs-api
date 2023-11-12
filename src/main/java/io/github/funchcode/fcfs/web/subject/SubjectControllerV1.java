@@ -20,7 +20,6 @@ public final class SubjectControllerV1 {
             @PathVariable("subjectId") String subjectId,
             @RequestBody SubjectTicketRequireRequest request
     ) {
-        // throws 별로 response 처리
         return subjectService.acquireTicket(subjectId, request.clientId());
     }
 

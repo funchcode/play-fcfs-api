@@ -1,5 +1,9 @@
 package io.github.funchcode.fcfs.web.subject.dto;
 
+import io.github.funchcode.fcfs.core.common.ErrorCode;
+import io.github.funchcode.fcfs.core.common.FcfsIllegalArgumentException;
+import io.github.funchcode.fcfs.core.common.FcfsRuntimeException;
+
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 
@@ -11,7 +15,7 @@ public record SubjectRegisterRequest(
 
     public SubjectRegisterRequest {
         if (openDateTime == null || deadlineDateTime == null) {
-            throw new IllegalArgumentException("opendate, deadlinedate null 요청");
+            throw new FcfsIllegalArgumentException(ErrorCode.INVALID_PARAMETERS).setExternalMessage("openDateTime, deadlineDateTime은 null을 입력할 수 없습니다.");
         }
     }
 
@@ -28,20 +32,20 @@ public record SubjectRegisterRequest(
             LocalDateTime today = LocalDateTime.now();
 
             if (year < today.getYear() || year > today.getYear() + 1) {
-                throw new IllegalArgumentException("연도(year)는 현재 날짜 기준 1년 후까지 입력 가능");
+                throw new FcfsRuntimeException(ErrorCode.INVALID_PARAMETERS).setExternalMessage("연도(year)는 현재 날짜 기준 1년 후까지 입력 가능합니다.");
             }
             if (month < 1 || month > 12) {
-                throw new IllegalArgumentException("월(month)은 1부터 12까지 입력 가능");
+                throw new FcfsRuntimeException(ErrorCode.INVALID_PARAMETERS).setExternalMessage("월(month)은 1부터 12까지 입력 가능합니다.");
             }
             int endDayOfMonth = YearMonth.of(year, month).atEndOfMonth().getDayOfMonth();
             if (day < 1 || day > endDayOfMonth) {
-                throw new IllegalArgumentException(String.format("일(day)은 1부터 %d까지 입력 가능", endDayOfMonth));
+                throw new FcfsRuntimeException(ErrorCode.INVALID_PARAMETERS).setExternalMessage("일(day)은 1부터 %d까지 입력 가능합니다.");
             }
             if (hour < 0 || hour > 23) {
-                throw new IllegalArgumentException("시(hour)는 0부터 23까지 입력 가능");
+                throw new FcfsRuntimeException(ErrorCode.INVALID_PARAMETERS).setExternalMessage("시(hour)는 0부터 23까지 입력 가능합니다.");
             }
             if (minute < 0 || minute > 59) {
-                throw new IllegalArgumentException("분(minute)는 0부터 59까지 입력 가능");
+                throw new FcfsRuntimeException(ErrorCode.INVALID_PARAMETERS).setExternalMessage("분(minute)는 0부터 59까지 입력 가능합니다.");
             }
 
         }
