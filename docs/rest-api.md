@@ -66,6 +66,8 @@
 | 409        | 정책 에러     |
 | 500        | 서버 에러     |
 
+---
+
 ### 티켓 발급
 
 #### POST /v1/subjects/{subjectId}/tickets/acquire
