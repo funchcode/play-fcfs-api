@@ -35,7 +35,7 @@ public final class SubjectTickets {
 
     private Optional<Ticket> getTicketByClientId(String clientId) {
         for (Ticket ticket : tickets) {
-            if (clientId.equals(ticket.getClientId())) {
+            if (clientId.equals(ticket.clientId())) {
                 return Optional.of(ticket);
             }
         }
@@ -50,7 +50,7 @@ public final class SubjectTickets {
         if (getTicketByClientId(clientId).isPresent()) {
             throw new TicketIssueException(ErrorCode.TICKET_POLICY, String.format("clientId = %s", clientId)).setExternalMessage("이미 등록된 요청입니다.");
         }
-        Ticket ticket = new Ticket(subject, clientId);
+        Ticket ticket = Ticket.newInstance(subject, clientId);
         tickets.add(ticket);
         return ticket;
     }

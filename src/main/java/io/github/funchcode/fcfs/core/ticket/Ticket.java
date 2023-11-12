@@ -2,22 +2,12 @@ package io.github.funchcode.fcfs.core.ticket;
 
 import io.github.funchcode.fcfs.core.subject.Subject;
 
-public final class Ticket {
+import java.util.UUID;
 
-    private final Subject subject;
-    private final String clientId;
+public record Ticket(String id, Subject subject, String clientId) {
 
-    public Ticket(Subject subject, String clientId) {
-        this.subject = subject;
-        this.clientId = clientId;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public String getClientId() {
-        return clientId;
+    public static Ticket newInstance(Subject subject, String clientId) {
+        return new Ticket(UUID.randomUUID().toString(), subject, clientId);
     }
 
 }

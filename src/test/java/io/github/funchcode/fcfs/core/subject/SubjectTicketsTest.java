@@ -17,16 +17,16 @@ public class SubjectTicketsTest {
         LocalDateTime today = LocalDateTime.now();
         Subject subject = new Subject("test-subject-id", limitedQuantityOf, today.minusDays(1L), today.plusDays(2L), Status.ONGOING);
         List<Ticket> fullTickets = Arrays.asList(
-                new Ticket(subject, "01"),
-                new Ticket(subject, "02"),
-                new Ticket(subject, "03"),
-                new Ticket(subject, "04"),
-                new Ticket(subject, "05"),
-                new Ticket(subject, "06"),
-                new Ticket(subject, "07"),
-                new Ticket(subject, "08"),
-                new Ticket(subject, "09"),
-                new Ticket(subject, "10")
+                new Ticket("test-ticket-id01", subject, "01"),
+                new Ticket("test-ticket-id02", subject, "02"),
+                new Ticket("test-ticket-id03", subject, "03"),
+                new Ticket("test-ticket-id04", subject, "04"),
+                new Ticket("test-ticket-id05", subject, "05"),
+                new Ticket("test-ticket-id06", subject, "06"),
+                new Ticket("test-ticket-id07", subject, "07"),
+                new Ticket("test-ticket-id08", subject, "08"),
+                new Ticket("test-ticket-id09", subject, "09"),
+                new Ticket("test-ticket-id10", subject, "10")
         );
         Assertions.assertThrows(TicketIssueException.class, () -> new SubjectTickets(subject, new HashSet<>(fullTickets)).issueTicket("11"));
         Assertions.assertDoesNotThrow(() -> new SubjectTickets(subject, new HashSet<>()).issueTicket("11"));
@@ -40,8 +40,8 @@ public class SubjectTicketsTest {
         LocalDateTime today = LocalDateTime.now();
         Subject subject = new Subject("test-subject-id", limitedQuantityOf, today.minusDays(1L), today.plusDays(2L), Status.ONGOING);
         List<Ticket> tickets = Arrays.asList(
-                new Ticket(subject, "01"),
-                new Ticket(subject, clientId)
+                new Ticket("test-ticket-id01", subject, "01"),
+                new Ticket("test-ticket-id02", subject, clientId)
         );
         Assertions.assertThrows(TicketIssueException.class, () -> new SubjectTickets(subject, new HashSet<>(tickets)).issueTicket(clientId));
         Assertions.assertDoesNotThrow(() -> new SubjectTickets(subject, new HashSet<>(tickets)).issueTicket("03"));

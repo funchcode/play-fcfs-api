@@ -25,7 +25,7 @@ public class SubjectService {
     public boolean acquireTicket(String subjectId, String clientId) {
         SubjectTickets subjectTickets = new SubjectTickets(
                 subjectRepository.findById(subjectId).orElseThrow(() -> new FcfsRuntimeException(ErrorCode.NOTFOUND_ENTITY).setExternalMessage("등록된 SUBJECT가 없습니다.")),
-                new HashSet<>(ticketRepository.findAllBySubject_Id(subjectId))
+                new HashSet<>(ticketRepository.findAllBySubjectId(subjectId))
         );
         return ticketService.register(subjectTickets.issueTicket(clientId));
     }

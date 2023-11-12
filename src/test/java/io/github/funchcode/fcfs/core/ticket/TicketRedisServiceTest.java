@@ -26,7 +26,7 @@ public class TicketRedisServiceTest extends AbstractContainerBaseTest {
         String clientId = "01";
         LocalDateTime today = LocalDateTime.now();
         Subject subject = new Subject("test-subject-id", 10, today.minusDays(1L), today.plusDays(2L), Status.ONGOING);
-        Ticket ticket = new Ticket(subject, clientId);
+        Ticket ticket = new Ticket("test-ticket-id", subject, clientId);
 
         Assertions.assertDoesNotThrow(() -> ticketRedisService.cachingTicket(ticket));
         Assertions.assertThrows(TicketIssueException.class, () -> ticketRedisService.cachingTicket(ticket));
@@ -38,10 +38,10 @@ public class TicketRedisServiceTest extends AbstractContainerBaseTest {
         int limitedQuantityOf = 3;
         LocalDateTime today = LocalDateTime.now();
         Subject subject = new Subject("test-subject-id", limitedQuantityOf, today.minusDays(1L), today.plusDays(2L), Status.ONGOING);
-        Ticket firstTicket = new Ticket(subject, "01");
-        Ticket secondTicket = new Ticket(subject, "02");
-        Ticket thirdTicket = new Ticket(subject, "03");
-        Ticket exceedTicket = new Ticket(subject, "04");
+        Ticket firstTicket = new Ticket("test-ticket-id01", subject, "01");
+        Ticket secondTicket = new Ticket("test-ticket-id02", subject, "02");
+        Ticket thirdTicket = new Ticket("test-ticket-id03", subject, "03");
+        Ticket exceedTicket = new Ticket("test-ticket-id04", subject, "04");
 
         Assertions.assertDoesNotThrow(() -> ticketRedisService.cachingTicket(firstTicket));
         Assertions.assertDoesNotThrow(() -> ticketRedisService.cachingTicket(secondTicket));

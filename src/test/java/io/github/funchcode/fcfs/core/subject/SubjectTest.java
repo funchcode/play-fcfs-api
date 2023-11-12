@@ -13,8 +13,6 @@ public class SubjectTest {
     @DisplayName("발급 가능 상태 확인 (기간 정책)")
     void checkIssueable_InvalidPeriod() {
         LocalDateTime today = LocalDateTime.now();
-        LocalDateTime pastOpenDate = today.minusDays(7L);
-        LocalDateTime pastDeadlineDate = today.minusDays(1L);
         LocalDateTime willOpenDate = today.plusDays(1L);
         LocalDateTime willDeadlineDate = today.plusDays(2L);
         LocalDateTime ongoingOpenDate = today.minusDays(1L);

@@ -23,7 +23,7 @@ public class TicketMessageServiceTest {
         String clientId = "01";
         LocalDateTime today = LocalDateTime.now();
         Subject subject = new Subject("test-subject-id", 10, today.minusDays(1L), today.plusDays(2L), Status.ONGOING);
-        Ticket ticket = new Ticket(subject, clientId);
+        Ticket ticket = new Ticket("test-ticket-id", subject, clientId);
         messageService.sendTicketMessage(ticket);
     }
 
