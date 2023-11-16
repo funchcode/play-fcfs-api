@@ -25,4 +25,12 @@ public class SubjectDynamoRepositoryTest {
         repository.save(subject);
     }
 
+    @Test
+    @DisplayName("Dynamo 연동 테스트 - 저장")
+    void saveTest() {
+        LocalDateTime today = LocalDateTime.now();
+        Subject subject = new Subject("test-subject-id", 10, today.minusDays(1L), today.plusDays(2L), Status.ONGOING);
+        repository.saveTest(subject);
+    }
+
 }
