@@ -4,10 +4,10 @@ import io.github.funchcode.fcfs.core.subject.Subject;
 
 import java.util.UUID;
 
-public record Ticket(String id, Subject subject, String clientId) {
+public record Ticket(Subject subject, String clientId) {
 
     public static Ticket newInstance(Subject subject, String clientId) {
-        return new Ticket(UUID.randomUUID().toString(), subject, clientId);
+        return new Ticket(subject, clientId);
     }
 
 }

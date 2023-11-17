@@ -11,7 +11,6 @@ public interface TicketRepository {
 
     List<Ticket> findAllBySubjectId(String subjectId);
     Ticket save(Ticket ticket);
-    Optional<Ticket> findById(String id);
     Optional<Ticket> findBySubjectIdAndClientId(String subjectId, String clientId);
 
 }

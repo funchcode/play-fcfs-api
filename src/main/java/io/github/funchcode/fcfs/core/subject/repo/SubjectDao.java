@@ -14,45 +14,51 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@DynamoDBTable(tableName = "fcfs_subject")
+@DynamoDBTable(tableName = "fcfs-subject")
 public class SubjectDao {
 
-    @DynamoDBHashKey
-    private String id;
+    static final String PK_PREFIX = "subject#";
+    private final String SK_INFO = "info";
 
-    @DynamoDBAttribute
+    @DynamoDBHashKey(attributeName = "PK")
+    private String pk;
+
+    @DynamoDBHashKey(attributeName = "SK")
+    private final String sk = SK_INFO;
+
+    @DynamoDBAttribute(attributeName = "openDate")
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime openDate;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "deadlineDate")
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime deadlineDate;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "limitedQuantityOf")
     private int limitedQuantityOf;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "status")
     @DynamoDBTypeConverted(converter = DynamoDBStatusConverter.class)
     private Status status;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "createdAt")
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime createdAt;
 
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "updatedAt")
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime updatedAt;
 
     public SubjectDao(Subject subject) {
-        this.id = subject.getId();
+        this.pk = toPk(subject.getId());
         this.openDate = subject.getOpenDate();
         this.deadlineDate = subject.getDeadlineDate();
         this.limitedQuantityOf = subject.getLimitedQuantityOf();
         this.status = subject.getStatus();
     }
 
-    public SubjectDao(String id, LocalDateTime openDate, LocalDateTime deadlineDate, int limitedQuantityOf, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
+    public SubjectDao(String pk, LocalDateTime openDate, LocalDateTime deadlineDate, int limitedQuantityOf, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.pk = pk;
         this.openDate = openDate;
         this.deadlineDate = deadlineDate;
         this.limitedQuantityOf = limitedQuantityOf;
@@ -62,7 +68,15 @@ public class SubjectDao {
     }
 
     public Subject toDomain() {
-        return new Subject(this.id, this.limitedQuantityOf, this.openDate, this.deadlineDate, this.status);
+        return new Subject(getId(), this.limitedQuantityOf, this.openDate, this.deadlineDate, this.status);
+    }
+
+    public String getId() {
+        return this.pk.replace(PK_PREFIX, "");
+    }
+
+    public static String toPk(String id) {
+        return String.format("%s%s", PK_PREFIX, id);
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {

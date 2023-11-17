@@ -19,37 +19,55 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@DynamoDBTable(tableName = "fcfs_ticket")
+@DynamoDBTable(tableName = "fcfs-ticket")
 public class TicketDao {
 
-    @DynamoDBHashKey
-    private String id;
+    private static final String PK_PREFIX = "subject#";
+    private static final String PK_SUFFIX = "#ticket";
+    private static final String SK_PREFIX = "client#";
 
-    @DynamoDBAttribute
-    private String clientId;
+    @DynamoDBHashKey(attributeName = "PK")
+    private String pk;
 
-    @DynamoDBAttribute
-    private String subjectId;
+    @DynamoDBAttribute(attributeName = "SK")
+    private String sk;
 
     @DynamoDBAttribute
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
     private LocalDateTime createdAt;
 
     public TicketDao(Ticket ticket) {
-        this.id = ticket.id();
-        this.clientId = ticket.clientId();
-        this.subjectId = ticket.subject().getId();
+        this.pk = toPk(ticket.subject().getId());
+        this.sk = toSk(ticket.clientId());
     }
 
-    public TicketDao(String id, String clientId, String subjectId, LocalDateTime createdAt) {
-        this.id = id;
-        this.clientId = clientId;
-        this.subjectId = subjectId;
+    public TicketDao(String pk, String sk, LocalDateTime createdAt) {
+        this.pk = pk;
+        this.sk = sk;
         this.createdAt = createdAt;
     }
 
+
+    public static String toPk(String subjectId) {
+        return String.format("%s%s%s", PK_PREFIX, subjectId, PK_SUFFIX);
+    }
+
+    public static String toSk(String clientId) {
+        return String.format("%s%s", SK_PREFIX, clientId);
+    }
+
+    public String getSubjectId() {
+        String subjectId = this.pk.replace(PK_PREFIX, "");
+        subjectId = subjectId.replace(PK_SUFFIX, "");
+        return subjectId;
+    }
+
+    public String getClientId() {
+        return this.sk.replace(SK_PREFIX, "");
+    }
+
     public Ticket toDomain(Subject subject) {
-        return new Ticket(id, subject, clientId);
+        return new Ticket(subject, getClientId());
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

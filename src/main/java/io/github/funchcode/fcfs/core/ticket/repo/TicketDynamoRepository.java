@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-// TODO DynamoDB 데이터 모델링 다시 진행해야 함
 @RequiredArgsConstructor
 @Repository
 public class TicketDynamoRepository implements TicketRepository {
@@ -31,7 +30,7 @@ public class TicketDynamoRepository implements TicketRepository {
     @Override
     public Ticket save(Ticket ticket) {
         TicketDao dao = new TicketDao(ticket);
-        if (!findById(ticket.id()).isPresent()) {
+        if (findBySubjectIdAndClientId(ticket.subject().getId(), ticket.clientId()).isEmpty()) {
             dao.setCreatedAt(LocalDateTime.now());
         }
         dynamoDBMapper.save(dao);
@@ -39,17 +38,12 @@ public class TicketDynamoRepository implements TicketRepository {
     }
 
     @Override
-    public Optional<Ticket> findById(String id) {
-        TicketDao dao = dynamoDBMapper.load(TicketDao.class, id);
+    public Optional<Ticket> findBySubjectIdAndClientId(String subjectId, String clientId) {
+        TicketDao dao = dynamoDBMapper.load(TicketDao.class, TicketDao.toPk(subjectId), TicketDao.toSk(clientId));
         if (dao == null) {
             return Optional.empty();
         }
         return Optional.ofNullable(dao.toDomain(subjectRepository.findById(dao.getSubjectId())
                 .orElseThrow(() -> new FcfsRuntimeException(ErrorCode.NOTFOUND_ENTITY).setExternalMessage("등록된 SUBJECT가 없습니다."))));
-    }
-
-    @Override
-    public Optional<Ticket> findBySubjectIdAndClientId(String subjectId, String clientId) {
-        return Optional.empty();
     }
 }

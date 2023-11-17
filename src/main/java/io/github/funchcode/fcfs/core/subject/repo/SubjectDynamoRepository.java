@@ -29,18 +29,13 @@ public class SubjectDynamoRepository implements SubjectRepository {
         return subject;
     }
 
-    public Subject saveTest(Subject subject) {
-        TicketDao dao = new TicketDao();
-        dao.setPk("subject#" + UUID.randomUUID());
-        dao.setSk("info");
-        dao.setLimitedQuantityOf(0);
-        dynamoDBMapper.save(dao);
-        return subject;
-    }
-
     @Override
     public Optional<Subject> findById(String id) {
-        SubjectDao subjectDao = dynamoDBMapper.load(SubjectDao.class, id);
+        return findByPk(SubjectDao.toPk(id));
+    }
+
+    public Optional<Subject> findByPk(String pk) {
+        SubjectDao subjectDao = dynamoDBMapper.load(SubjectDao.class, pk);
         if (subjectDao == null) {
             return Optional.empty();
         }
