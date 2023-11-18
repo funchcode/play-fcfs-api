@@ -11,8 +11,6 @@
 
 ### Java
 
-사용해왔던 기술인 Spring MVC, JPA의 개념을 다시 한번 정리하기 위해 Java를 사용하기로 결정했다.
-
 ### Redis
 
 API 서버 단에서 트래픽을 빠르고 효율적으로 처리하기 위해 Redis를 사용하기로 결정했다.   
@@ -26,12 +24,28 @@ API 서버의 부하를 줄이고 요청된 순서를 보장받기 위해 AWS SQ
 
 Serverless, Fully managed 환경인 NoSQL DB를 학습해보기 위해 AWS DynamoDB를 사용하기로 결정했다.
 
-### Kotlin
+---
 
-서버의 효율성 및 안정성을 위해 멀티 스레딩 기법을 이용하기로 결정했다.  
-이번 프로젝트를 통해 Kotlin을 경험해본다.  
-Kotlin에서 경량화된 스레드라고 할 수 있는 coroutine을 이용한다.  
-*본 레파지토리 API Server에서는 Kotlin을 사용하지 않는다.
+## Structure
+
+![structure.png](./docs/assets/structure.png)
+
+---
+
+## 애플리케이션 작동 방식
+
+### 대상(SUBJECT)
+
+한정 수량의 Ticket을 설정하기 위해 대상(SUBJECT)를 등록해야 한다.  
+애플리케이션이 `AWS DynamoDB`에 **Write**하는 작업은 SUBJECT를 등록하는 케이스만 허용한다.
+
+### 티켓(TICKET)
+
+이번 프로젝트의 목표는 순간적인 트래픽을 대응할 수 있는 애플리케이션을 구축하는 것이다.  
+티켓(TICKET) 획득 요청에서 순간적인 트래픽을 발생한다는 것을 가정하고 애플리케이션을 구축했다.  
+대량의 요청은 1차로 **Redis**에서 필터링을 한다. Redis에서 제한된 수량을 초과하는 요청인 경우를 바로 파악하고 Response를 한다.  
+정상적인 요청은 **Redis → SQS → Worker** 흐름으로 요청이 흐른다.  
+Ticket 데이터는 `AWS DynamoDB`에서 **Read** 작업만 한다. **Write** 작업은 **Consumer Worker**에서 진행한다.
 
 ---
 

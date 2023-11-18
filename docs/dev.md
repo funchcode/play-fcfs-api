@@ -24,8 +24,17 @@ AWS DynamoDB 서비스에 붙여서 사용하기 위해서는 다음 두 가지�
 RDB 데이터 모델링과는 다르게 데이터에 어떤 목적으로 접근할 건지 먼저 파악한 후에 데이터 모델링을 진행해야 한다.  
 PK(파티션키), SK(정렬키)와 문자열 패턴을 활용해서 데이터 접근 방식을 정의할 수 있다.
 
-subject#123456 | "info" | "openDate" "deadlineDate" "limitedQuantityOf" "status" "timestamp"
-subject#123456#ticket | client#abcde | "timestamp" 
+| Primary Key           |                  |Attributes|                  |                       |            |               |               |  
+|-----------------------|------------------|---|------------------|-----------------------|------------|---------------|---------------|  
+| **PK(Partition Key)** | **SK(Sort Key)** |**openDate**| **deadlineDate** | **limitedQuantityOf** | **status** | **createdAt** | **updatedAt** |
+| subject#{subjectId1}  | info | 2023-12-31T12:24 | 2024-01-31T12:24 | 100 | ONGOING | 2023-11-18T22:30:45.292739 | 2023-11-18T22:30:45.292739 |
+
+| Primary Key                 |                        | Attributes       |  
+|-----------------------------|------------------------|------------------|  
+| **PK(Partition Key)**       | **SK(Sort Key)**       | **createdAt**    |
+| subject#{subjectId1}#ticket | client#{clientId1} | 2023-12-31T12:24 |
+
+Junit 테스트를 위해서 dynamoDB 호출은 docker에서 `amazon/dynamodb-local` 컨테이너를 올려 환경을 구성한다.
 
 [🔍 참고자료]  
 [AWS 개발자 가이드-데이터 모델 스키마 디자인](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/data-modeling-schema-social-network.html)

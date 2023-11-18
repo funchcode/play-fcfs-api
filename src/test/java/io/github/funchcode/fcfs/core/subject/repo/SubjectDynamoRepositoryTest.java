@@ -1,10 +1,11 @@
 package io.github.funchcode.fcfs.core.subject.repo;
 
+import io.github.funchcode.fcfs.AbstractContainerBaseTest;
 import io.github.funchcode.fcfs.core.subject.Status;
 import io.github.funchcode.fcfs.core.subject.Subject;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -12,10 +13,15 @@ import java.time.LocalDateTime;
 
 @ActiveProfiles("mytest")
 @SpringBootTest
-public class SubjectDynamoRepositoryTest {
+public class SubjectDynamoRepositoryTest extends AbstractContainerBaseTest {
 
-    @Autowired
     private SubjectDynamoRepository repository;
+
+    @BeforeEach
+    void setUp() {
+        AbstractContainerBaseTest.createTable("fcfs-ticket", "PK", "SK");
+        repository = new SubjectDynamoRepository(dynamoDBMapper);
+    }
 
     @Test
     @DisplayName("Dynamo 연동 테스트 - 저장")
