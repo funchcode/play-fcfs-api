@@ -14,17 +14,17 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@DynamoDBTable(tableName = "fcfs-subject")
+@DynamoDBTable(tableName = "fcfs-ticket")
 public class SubjectDao {
 
     static final String PK_PREFIX = "subject#";
-    private final String SK_INFO = "info";
+    static final String SK_INFO = "info";
 
     @DynamoDBHashKey(attributeName = "PK")
     private String pk;
 
-    @DynamoDBHashKey(attributeName = "SK")
-    private final String sk = SK_INFO;
+    @DynamoDBRangeKey(attributeName = "SK")
+    private String sk = SK_INFO;
 
     @DynamoDBAttribute(attributeName = "openDate")
     @DynamoDBTypeConverted(converter = DynamoDBLocalDateTimeConverter.class)
@@ -71,6 +71,7 @@ public class SubjectDao {
         return new Subject(getId(), this.limitedQuantityOf, this.openDate, this.deadlineDate, this.status);
     }
 
+    @DynamoDBIgnore
     public String getId() {
         return this.pk.replace(PK_PREFIX, "");
     }

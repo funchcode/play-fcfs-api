@@ -1,13 +1,8 @@
 package io.github.funchcode.fcfs.core.ticket.repo;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import io.github.funchcode.fcfs.core.db.DynamoDBLocalDateTimeConverter;
 import io.github.funchcode.fcfs.core.subject.Subject;
-import io.github.funchcode.fcfs.core.subject.SubjectRepository;
-import io.github.funchcode.fcfs.core.subject.repo.SubjectDao;
 import io.github.funchcode.fcfs.core.ticket.Ticket;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +10,6 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Deprecated // TODO DynamoDB 데이터 모델링 다시 진행해야 함
 @NoArgsConstructor
 @Getter
 @Setter
@@ -56,12 +50,14 @@ public class TicketDao {
         return String.format("%s%s", SK_PREFIX, clientId);
     }
 
+    @DynamoDBIgnore
     public String getSubjectId() {
         String subjectId = this.pk.replace(PK_PREFIX, "");
         subjectId = subjectId.replace(PK_SUFFIX, "");
         return subjectId;
     }
 
+    @DynamoDBIgnore
     public String getClientId() {
         return this.sk.replace(SK_PREFIX, "");
     }

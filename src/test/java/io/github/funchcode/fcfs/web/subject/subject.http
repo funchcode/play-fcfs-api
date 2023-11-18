@@ -1,5 +1,5 @@
 ### 발급
-POST http://localhost:8080/v1/subjects/7fdb82d1-f331-476b-9198-c2aa194010be/tickets/acquire
+POST http://localhost:8080/v1/subjects/7cefa31a-5f9a-4202-9515-ee82cd980ec5/tickets/acquire
 Content-Type: application/json
 
 {
